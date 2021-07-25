@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<div>
+<h1 style="text-align:center;color:black;font-family:sans-serif;font-size:300%">The Spread of COVID-19 in the USA</h1>
+</div>
+<link rel="stylesheet" type="text/css" href="index.css">
+<script src="overview.js"></script>
+<script src="WeeklyCase.js"></script>
+<script src="WeeklyDeath.js"></script>
+<script src="CountyDetail.js"></script>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<script>
+	var data1 = null;
+</script>
+</head>
+<body>
+
+<div class="tab">
+	<button class="tablinks" onclick="EventLogger(event, 'Overview')">COVID-19 Spread in USA</button>
+	<button class="tablinks" onclick="EventLogger(event, 'WeeklyCase')">State Wise Weekly Case Trend</button>
+	<button class="tablinks" onclick="EventLogger(event, 'WeeklyDeath')">State Wise Weekly Death trend</button>
+   <button class="tablinks" onclick="EventLogger(event, 'CountyDetail')">COVID-19 Spread in State by County</button>
+</div>
+
+<div id="Overview" class="tabcontent">
+	<div id="tooltip" ></div>
+	<p>Corona Virus also known as COVID-19 is an ongoing global pendemic. The virus was first detected in Wuhan, China in December of 2019 and since then it has spread to all the countries in the world.
+	The Virus was declare a global pendemic by WHO on 11th March 2020. It has affected more than 190 million people worldwide with 34 million in the USA alone. More information can be found <a href="https://en.wikipedia.org/wiki/COVID-19_pandemic">here</a>. Below map of the USA shows an overview of
+	how COVID-19 has affected various States in the USA.
+	</p>
+	<hr>
+	</div>
+</div>
+</div>
+
+<div id="WeeklyCase" class="tabcontent">
+  <div id="tooltip"></div>
+	<p>This page will give you the ability to analyze the growth of COVID-19 cases in the selected state, week by week, since the pandemic has started. By analyzing the slope of the line chart during a particular time period we can relate the sudden spike /slowdown of spread with other related 
+	activities like vaccination drive and Mask mandate. Vaccination has started since January 2021 and for most of the states in the USA we can see that the rate of spread has slowed down in past 6 months.
+	</p>
+	<hr>
+</div>
+
+<div id="WeeklyDeath" class="tabcontent">
+	<p>This page will gives you the ability to analyze the deaths due to COVID-19 in the selected state, week by week, since the pandemic has started. By analyzing the slope of the line chart during a particular time period we can relate the sudden spike in deaths with other related activities
+	like vaccination drive and Mask mandate. Vaccination has started since January 2021 and for most of the states in the USA we can see that the COVID-19 related deaths has slowed down in past 6 months.
+	</p>
+	<hr>
+</div>
+<div id="CountyDetail" class="tabcontent">
+	<p>This page will give you the ability to have more granular level of COVID-19 related information for a selected state in the USA. Once you select a state it will list down all the counties in the decreasing order of the number of cases that county had so far. If you hover over a specific 
+	county you can see the total number of cases and deaths that county had so far. 
+	</p>
+	<hr>
+</div>
+<script>
+function EventLogger(evt, visName) {
+    var i, tabcontent, tablinks;
+	d3.select("svg").remove();
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+			tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(visName).style.display = "block";
+	if(evt!==0)
+		evt.currentTarget.className += " active";
+		
+	if(visName==='CountyDetail')
+		CountyDetail.display();	
+	if(visName==='WeeklyDeath')
+		WeeklyDeath.display();
+	if(visName==='WeeklyCase')
+		WeeklyCase.display();
+	if(visName==='Overview')
+	{
+        overview.display();
+		tablinks[0].className += " active";}
+}
+EventLogger(0,'Overview');
+</script>
+     
+</body>
+</html> 
