@@ -1,8 +1,10 @@
 var WeeklyDeath={
     display: async function () {
 
-      d3.select("#WeeklyDeath").selectAll("#stateDiv1").remove();
-      d3.select("#WeeklyDeath").select("svg").remove();
+        d3.select("#WeeklyCase").selectAll("#stateDiv").remove();
+        d3.select("#WeeklyCase").select("svg").remove();
+        d3.select("#WeeklyDeath").selectAll("#stateDiv1").remove();
+        d3.select("#WeeklyDeath").select("svg").remove();
       //d3.select("#WeeklyCase").selectAll("select").delete();
       //d3.select("#WeeklyCase").selectAll("option").delete();
       
