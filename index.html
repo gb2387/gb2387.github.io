@@ -13,15 +13,20 @@
 <script src='https://d3js.org/d3.v5.min.js'></script>
 <script>
 	var data1 = null;
+	var CurPage = "Overview";
 </script>
 </head>
 <body>
 
 <div class="tab">
-	<button class="tablinks" onclick="EventLogger(event, 'Overview')">COVID-19 Spread in USA</button>
-	<button class="tablinks" onclick="EventLogger(event, 'WeeklyCase')">State Wise Weekly Case Trend</button>
-	<button class="tablinks" onclick="EventLogger(event, 'WeeklyDeath')">State Wise Weekly Death trend</button>
-   <button class="tablinks" onclick="EventLogger(event, 'CountyDetail')">COVID-19 Spread in State by County</button>
+	<button class="tablinks" >COVID-19 Spread in USA</button>
+	<button class="tablinks" >State Wise Weekly Case Trend</button>
+	<button class="tablinks" >State Wise Weekly Death trend</button>
+   <button class="tablinks" >COVID-19 Spread in State by County</button>
+</div>
+<div class="tab">
+	<button id="prev" class="tablinks" onclick="EventLogger(event, 'Previous')">Previous</button>
+	<button id="next" class="tablinks" onclick="EventLogger(event, 'Next')">Next</button>
 </div>
 
 <div id="Overview" class="tabcontent">
@@ -55,22 +60,80 @@
 	</p>
 	<hr>
 </div>
+<div id="Next" class="tabcontent">
+</div>
+<div id="Previous" class="tabcontent">
+</div>
 <script>
 function EventLogger(evt, visName) {
     var i, tabcontent, tablinks;
 	d3.select("svg").remove();
     tabcontent = document.getElementsByClassName("tabcontent");
+	console.log(tabcontent);
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
     tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
+    /*for (i = 0; i < tablinks.length; i++) {
 			tablinks[i].className = tablinks[i].className.replace(" active", "");
 			tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
+    }*/
     document.getElementById(visName).style.display = "block";
 	if(evt!==0)
 		evt.currentTarget.className += " active";
+	//console.log(CurPage);
+	if(visName === 'Next')
+	{
+		if(CurPage == "Overview")
+			{CurPage = "WeeklyCase";
+			tablinks[0].className = tablinks[0].className.replace(" active", "");
+			tablinks[1].className += " active";}
+		else if(CurPage == "WeeklyCase")
+		    {CurPage = "WeeklyDeath";
+			tablinks[1].className = tablinks[1].className.replace(" active", "");
+			tablinks[2].className += " active";}
+		else if(CurPage == "WeeklyDeath")
+			{CurPage = "CountyDetail";
+			tablinks[3].className += " active";
+			tablinks[2].className = tablinks[2].className.replace(" active", "");
+			 d3.select("#next").text("Start Over");	}
+		else{
+			CurPage = "Overview";
+			d3.select("#next").text("Next");
+			tablinks[3].className = tablinks[3].className.replace(" active", "");
+			tablinks[0].className += " active";
+		}
+		
+		//console.log(CurPage);
+		EventLogger(event,CurPage);
+		
+	}
+
+	else if(visName === 'Previous')
+	{
+		if(CurPage == "Overview")
+			{
+			tablinks[0].className += " active";}
+		else if(CurPage == "WeeklyCase")
+		    {CurPage = "Overview";
+			tablinks[1].className = tablinks[1].className.replace(" active", "");
+			tablinks[0].className += " active";}
+		else if(CurPage == "WeeklyDeath")
+			{CurPage = "WeeklyCase";
+			tablinks[1].className += " active";
+			tablinks[2].className = tablinks[2].className.replace(" active", "");
+			 }
+		else{
+			CurPage = "WeeklyDeath";
+			d3.select("#next").text("Next");
+			tablinks[3].className = tablinks[3].className.replace(" active", "");
+			tablinks[2].className += " active";
+		}
+		
+		//console.log(CurPage);
+		EventLogger(event,CurPage);
+		
+	}
 		
 	if(visName==='CountyDetail')
 		CountyDetail.display();	
@@ -81,7 +144,8 @@ function EventLogger(evt, visName) {
 	if(visName==='Overview')
 	{
         overview.display();
-		tablinks[0].className += " active";}
+		//tablinks[0].className += " active";
+	}
 }
 EventLogger(0,'Overview');
 </script>
