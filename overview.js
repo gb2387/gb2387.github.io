@@ -1,8 +1,10 @@
 var overview={
     display: async function () {
+        d3.select("#prev").style("color","grey");
         var svg = d3.select("#Overview").append("svg").attr("Width",600).attr("height",300),
         width = +svg.attr("width"),
         height = +svg.attr("height");
+
     // Map and projection
     /*var projection = d3.geoMercator()
         .center([2, 47])                // GPS of location to zoom on
@@ -144,4 +146,25 @@ var div = d3.select("body").append("div")
                 .duration(200)      
                 .style("opacity", 1); 
     })
+    var d = [...Array(1000).keys()]
+
+    svg.selectAll(".firstrow").data(d).enter().append('rect').transition().duration(2000).attr("x", function(d){ return 1000 + (0.3*d);}).attr("y", 450)
+    .attr("width", 0.3).attr("height", 10)
+    .attr("fill",function(d){ return colorRange(d);});
+
+    svg.append('g').append('text').transition().duration(2000).attr("x", 1000).attr("y", 440)
+    .attr("id","anno")
+    .text("Total Cases").attr("font-size", "12px")
+    .attr("font-weight","italic").style("fill", "Black").attr("font-weight","bold")
+
+    svg.append('g').append('text').transition().duration(2000).attr("x", 1000).attr("y", 475)
+    .attr("id","anno")
+    .text("183").attr("font-size", "12px")
+    .attr("font-weight","italic").style("fill", "Black").attr("font-weight","bold")
+
+    svg.append('g').append('text').transition().duration(2000).attr("x", 1245).attr("y", 475)
+    .attr("id","anno")
+    .text("3,857,764").attr("font-size", "12px")
+    .attr("font-weight","italic").style("fill", "Black").attr("font-weight","bold")
+
 }};
