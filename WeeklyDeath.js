@@ -123,7 +123,7 @@ var WeeklyDeath={
       var line = svg.append("path")
           .datum(data)
           .attr("fill", "none")
-          .attr("stroke", "steelblue" )
+          .attr("stroke", "red" )
           .attr("stroke-width", 2)
           .attr("d", d3.line()
             .x(function(d) { return x(Date.parse(d.Week)); })
