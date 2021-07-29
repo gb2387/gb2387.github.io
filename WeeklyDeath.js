@@ -202,7 +202,7 @@ var WeeklyDeath={
          .attr("x1", 1370)
           .attr("y1", 30)
           .attr("x2", 1370)
-          .attr("y2", 120)
+          .attr("y2", 110)
         //.attr("rotate","60")
           .style("stroke-width", 1.5)
       
